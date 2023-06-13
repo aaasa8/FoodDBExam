@@ -53,7 +53,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showFoods() {
+			val db = helper.readableDatabase
+			val columns = null
+			val selection = null
+			val selectionArgs = null
+			val cursor : Cursor = db.query(FoodDBHelper.TABLE_NAME, columns, selection, 
+					selectionArgs, null, null, null, null)
 
+			val foodList = arrayListOf<FoodDto>()
+
+			with(cursor) {
+				while(moveToNext()){
+					val no = getInt(getColumnIndex(BaseColumns._ID))
+					val food = getString(getColumnsIndex(FoodDBHelper,COL_FOOD))
+					val country = getString(getColumnIndex(FoodDBHelper.COL_COUNTRY))
+					val dto = FoodDto(no, food, country)
+					foodList.add(dto)
+				}
+			}
+			var result : String = ""
+
+			for(dto in foodList){
+					result += dto.toString() + "\n"
+			}
+			binding.tvDisplay.text = result
     }
 
 }
