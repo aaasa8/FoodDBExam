@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 //        helper = FoodDBHelper(this)
 
         binding.btnSelect.setOnClickListener{
-
+					showFoods()
         }
 
         binding.btnAdd.setOnClickListener{
