@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRemove.setOnClickListener{
-
+					deleteFood()
         }
 
     }
@@ -49,7 +49,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun deleteFood() {
-
+			val db = helper.writableDatabase
+			val whereClause = "${FoodDBHelper.COL_FOOD}=?"
+			val whereArgs = arrayOf("	된장찌개")
+			db.delete(FoodDBHelper.TABLE_NAME, whereClause, whereArgs)
+			helper.close()
     }
 
     fun showFoods() {
