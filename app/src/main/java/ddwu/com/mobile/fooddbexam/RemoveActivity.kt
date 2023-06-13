@@ -12,5 +12,15 @@ class RemoveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         removeBinding = ActivityRemoveBinding.inflate(layoutInflater)
         setContentView(removeBinding.root)
+			helper = FoodDBHelper(this)
+
+			removeBinding.btnRemoveFood.setOnClickListener{
+				val db = hepler.writableDatabase
+				val whereClause = "${FoodDBHelper.COL_FOOD}=?"
+				val food = removeBinding.etRemoveFood.text.toString()
+				val whereArgs = arrayOf(food)
+				db.delete(FoodDBHelper.TABLE_NAME, whereClause, whereArgs)
+				helper.close()
+			}
     }
 }
